@@ -19,10 +19,11 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+show_excerpts: true
+
 minima:
   skin: classic
   date_format: "%Y.%m.%d"
-  show_excerpts: true
   social_links:
     github: borigunbbang
 
