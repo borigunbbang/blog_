@@ -101,14 +101,6 @@ a:hover {
   border-color: transparent;
 }
 
-.post-list-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
 .post-list .post-meta {
   display: inline-block;
   font-size: 13px;
@@ -118,13 +110,7 @@ a:hover {
   padding: 3px 11px;
   border-radius: 999px;
   line-height: 1.6;
-}
-
-.post-category {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
+  margin-bottom: 10px;
 }
 
 .post-list h3 {
