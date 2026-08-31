@@ -81,6 +81,18 @@ a:hover {
   margin-bottom: 36px;
 }
 
+/* 테마 기본 "Posts" 라벨을 한글로 대체 (레이아웃 파일은 건드리지 않고 CSS로만 처리) */
+.post-list-heading {
+  font-size: 0;
+  margin-bottom: 16px;
+}
+.post-list-heading::after {
+  content: "최근 글";
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
 .post-list {
   margin-left: 0;
   list-style: none;
@@ -199,6 +211,11 @@ a:hover {
 
 .site-footer a {
   color: var(--muted);
+}
+
+/* 사이트 제목이 footer-heading과 중복 표시되는 기본 영역 숨김 */
+.site-footer .footer-col-1 {
+  display: none;
 }
 .site-footer a:hover {
   color: var(--accent);
