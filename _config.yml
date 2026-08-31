@@ -1,0 +1,31 @@
+# Jekyll 사이트 설정
+title: 학습 기록
+description: 날짜별로 남기는 학습 기록 블로그
+url: "https://borigunbbang.github.io"
+baseurl: "/blog_"
+
+# 이 저장소는 프로젝트 페이지(<user>.github.io/blog_)로 배포됩니다.
+# 저장소 Settings > Pages 에서 Source를 "Deploy from a branch" / main / (root)로 지정하세요.
+
+theme: minima
+
+# 최신 글이 먼저 보이도록
+future: false
+timezone: Asia/Seoul
+
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+minima:
+  skin: classic
+  social_links:
+    github: borigunbbang
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
