@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# 간단한 블로그 포스팅 CLI: 새 글 만들기 + 커밋/푸시
+set -euo pipefail
+
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+POSTS_DIR="$REPO_DIR/_posts"
+
+usage() {
+  echo "사용법:"
+  echo "  blogpost new \"제목\"        _posts/에 오늘 날짜로 새 글 파일 생성"
+  echo "  blogpost publish [\"메시지\"] git add + commit + push"
+}
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  new)
+    title="${1:-}"
+    if [ -z "$title" ]; then
+      echo "제목을 입력해주세요. 예: blogpost new \"오늘 배운 것\""
+      exit 1
+    fi
+
+    today="$(date +%Y-%m-%d)"
+    last_n="$(ls "$POSTS_DIR" 2>/dev/null | grep -oE 'day-[0-9]+' | grep -oE '[0-9]+' | sort -n | tail -1 || true)"
+    next_n=$(( ${last_n:-0} + 1 ))
+    filename="$POSTS_DIR/${today}-day-${next_n}.md"
+
+    cat > "$filename" <<EOF
+---
+layout: post
+title: "$title"
+date: $today 00:00:00 +0900
+categories: [일지]
+---
+
+EOF
+    echo "생성됨: $filename"
+    ;;
+
+  publish)
+    msg="${1:-학습 기록 업데이트}"
+    cd "$REPO_DIR"
+    git add -A
+    git commit -m "$msg"
+    git push origin main
+    ;;
+
+  *)
+    usage
+    exit 1
+    ;;
+esac
