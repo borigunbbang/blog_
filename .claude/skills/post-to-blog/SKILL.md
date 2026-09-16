@@ -18,6 +18,13 @@ recurring workflow is: the user drops a raw `.docx`/`.txt` file straight into
 `_posts/`, and Claude turns it into a matching markdown post, files the raw
 source away, and ships it. Follow these steps in order.
 
+**"Ships it" means all the way to `git push` — not just creating the file.**
+This skill exists specifically to collapse "convert → archive → commit →
+push" into one request, so once you're through step 5, go straight into step
+6 without stopping to ask "커밋할까요?" — pausing there defeats the point of
+having the skill. The one thing worth pausing for is the *content* itself
+(step 3's caveat about ambiguous source material), not the git operations.
+
 ## 1. Find the raw file
 
 List `_posts/` and find the file that does **not** match the
@@ -104,9 +111,12 @@ Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 git push origin main
 ```
 
-Only push once you're confident the post reads well — if anything about the
-source content was ambiguous (illegible fragments, unclear date), ask the
-user rather than guessing, since it's about to go live on a public blog.
+Run this right after step 5, same turn, no confirmation prompt in between —
+that's the whole point of the skill. The only reason to stop before this
+step is genuine uncertainty about the *content* (illegible fragments,
+unclear date, contradictory notes) — ask about that, not about whether to
+commit. If nothing was ambiguous, commit and push and simply report what
+landed.
 
 ## After pushing
 
