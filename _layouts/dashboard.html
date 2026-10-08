@@ -6,7 +6,9 @@ layout: default
 {%- assign projects = site.categories['프로젝트'] -%}
 {%- assign retros = site.categories['회고'] -%}
 {%- assign glossary = site.categories['용어정리'] | first -%}
-{%- assign term_count = glossary.content | split: '</tr>' | size | minus: 1 -%}
+{%- assign row_count = glossary.content | split: '</tr>' | size | minus: 1 -%}
+{%- assign table_count = glossary.content | split: '<thead>' | size | minus: 1 -%}
+{%- assign term_count = row_count | minus: table_count -%}
 
 <div class="dash">
   <section class="dash-hero">
