@@ -12,7 +12,8 @@
         <aside class="site-sidebar">
           <p class="sidebar-heading">카테고리</p>
           <ul class="sidebar-category-list">
-            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.categories contains '일지' %} class="is-active"{% endif %}>학습목록</a></li>
+            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="is-active"{% endif %}>홈</a></li>
+            <li><a href="{{ '/posts/' | relative_url }}"{% if page.url == '/posts/' or page.categories contains '일지' %} class="is-active"{% endif %}>학습목록</a></li>
             <li><a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' or page.categories contains '프로젝트' %} class="is-active"{% endif %}>프로젝트</a></li>
             <li><a href="{{ '/retros/' | relative_url }}"{% if page.url == '/retros/' or page.categories contains '회고' %} class="is-active"{% endif %}>주간 회고</a></li>
             <li><a href="{{ '/glossary/' | relative_url }}"{% if page.url == '/glossary/' or page.categories contains '용어정리' %} class="is-active"{% endif %}>용어정리</a></li>

@@ -446,3 +446,127 @@ a:hover {
     flex-direction: column;
   }
 }
+
+/* ---------- 메인 대시보드 ---------- */
+.dash-hero {
+  background: linear-gradient(135deg, var(--accent), #8f7dff);
+  color: #fff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  margin: 12px 0 20px;
+}
+.dash-hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #fff;
+}
+.dash-hero p {
+  opacity: 0.9;
+  margin-bottom: 18px;
+}
+.dash-hero .search-input {
+  border: none;
+}
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.dash-stats div {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.dash-stats strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.dash-stats span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.dash-card,
+.dash-card:visited {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  color: var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.dash-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(26, 26, 46, 0.07);
+  text-decoration: none;
+  color: var(--ink);
+}
+.dash-icon {
+  font-size: 22px;
+}
+.dash-card h3 {
+  margin: 6px 0 2px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.dash-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.dash-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.dash-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+.dash-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 4px 0 8px;
+}
+.dash-panel-head h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+.dash-panel-head a {
+  font-size: 13px;
+}
+.dash-retro-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.dash-retro-body {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+@media screen and (max-width: 700px) {
+  .dash-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dash-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dash-cols {
+    grid-template-columns: 1fr;
+  }
+}
