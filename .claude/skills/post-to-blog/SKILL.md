@@ -98,6 +98,23 @@ as a page or breaking the build. Keep the original filename (fix obviously
 broken characters like a stray `:` from a date typed as `9:4` only if it
 would cause shell/path headaches, otherwise leave it as the user wrote it).
 
+## 5b. Update the glossary (용어정리)
+
+Every new post also feeds the glossary post `_posts/2026-10-08-glossary.md`
+(`categories: [용어정리]`, shown at `/glossary/`). Don't ask — just do it:
+
+- Pick the important new terms from the post you just wrote (concepts, not
+  one-off names). Skip terms already in the glossary; improve an existing
+  definition only if the new post clearly explains it better.
+- Add each as a `| 용어 | 정의 |` row under the matching numbered `##` topic
+  section. If no section fits, add a new numbered section at the end.
+- Use the user's own definitions from the post where possible; keep each
+  definition to one line.
+- Update the title's date range (e.g. `8/31~10/7`) and intro line to cover the
+  newest post.
+- Commit it in the same commit as the post, and mention the added terms in
+  the final reply.
+
 ## 6. Commit and push
 
 ```bash
