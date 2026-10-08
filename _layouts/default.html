@@ -13,7 +13,10 @@
           <p class="sidebar-heading">카테고리</p>
           <ul class="sidebar-category-list">
             <li>
-              <a href="{{ '/' | relative_url }}"{% if page.layout == 'home' %} class="is-active"{% endif %}>학습목록</a>
+              <a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.categories contains '일지' %} class="is-active"{% endif %}>학습목록</a>
+            </li>
+            <li>
+              <a href="{{ '/glossary/' | relative_url }}"{% if page.url == '/glossary/' or page.categories contains '용어정리' %} class="is-active"{% endif %}>용어정리</a>
             </li>
           </ul>
         </aside>
