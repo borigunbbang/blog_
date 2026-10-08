@@ -29,9 +29,9 @@ header_pages:
 # repo_id / category_id 를 받아 채우면 글 하단에 댓글창이 켜집니다. 비어 있으면 표시 안 함.
 giscus:
   repo: borigunbbang/blog_
-  repo_id: ""
-  category: Comments
-  category_id: ""
+  repo_id: "R_kgDOUJYszQ"
+  category: Announcements
+  category_id: "DIC_kwDOUJYszc4DHTrI"
 
 minima:
   skin: classic
