@@ -12,16 +12,62 @@
         <aside class="site-sidebar">
           <p class="sidebar-heading">카테고리</p>
           <ul class="sidebar-category-list">
-            <li>
-              <a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.categories contains '일지' %} class="is-active"{% endif %}>학습목록</a>
-            </li>
-            <li>
-              <a href="{{ '/glossary/' | relative_url }}"{% if page.url == '/glossary/' or page.categories contains '용어정리' %} class="is-active"{% endif %}>용어정리</a>
-            </li>
+            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.categories contains '일지' %} class="is-active"{% endif %}>학습목록</a></li>
+            <li><a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' or page.categories contains '프로젝트' %} class="is-active"{% endif %}>프로젝트</a></li>
+            <li><a href="{{ '/retros/' | relative_url }}"{% if page.url == '/retros/' or page.categories contains '회고' %} class="is-active"{% endif %}>주간 회고</a></li>
+            <li><a href="{{ '/glossary/' | relative_url }}"{% if page.url == '/glossary/' or page.categories contains '용어정리' %} class="is-active"{% endif %}>용어정리</a></li>
+            <li><a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} class="is-active"{% endif %}>태그</a></li>
+            <li><a href="{{ '/search/' | relative_url }}"{% if page.url == '/search/' %} class="is-active"{% endif %}>검색</a></li>
+            <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="is-active"{% endif %}>소개</a></li>
           </ul>
         </aside>
         <div class="content-area">
           {{ content }}
+
+          {%- if page.layout == 'post' -%}
+            {%- if page.tags.size > 0 -%}
+            <div class="post-tags">
+              {%- for t in page.tags -%}
+              <a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ t | slugify: 'raw' }}">#{{ t }}</a>
+              {%- endfor -%}
+            </div>
+            {%- endif -%}
+            <nav class="post-nav">
+              {%- if page.previous -%}
+              <a class="post-nav-prev" href="{{ page.previous.url | relative_url }}"><span>← 이전 글</span>{{ page.previous.title | escape }}</a>
+              {%- else -%}<span></span>{%- endif -%}
+              {%- if page.next -%}
+              <a class="post-nav-next" href="{{ page.next.url | relative_url }}"><span>다음 글 →</span>{{ page.next.title | escape }}</a>
+              {%- endif -%}
+            </nav>
+            {%- if site.giscus.repo_id and site.giscus.category_id -%}
+            <script src="https://giscus.app/client.js"
+              data-repo="{{ site.giscus.repo }}"
+              data-repo-id="{{ site.giscus.repo_id }}"
+              data-category="{{ site.giscus.category }}"
+              data-category-id="{{ site.giscus.category_id }}"
+              data-mapping="pathname" data-strict="0" data-reactions-enabled="1"
+              data-emit-metadata="0" data-input-position="top" data-theme="light"
+              data-lang="ko" crossorigin="anonymous" async></script>
+            {%- endif -%}
+            <script>
+              (function () {
+                var body = document.querySelector('.post-content');
+                if (!body) return;
+                var hs = body.querySelectorAll('h2, h3');
+                if (hs.length < 4) return;
+                var toc = document.createElement('nav');
+                toc.className = 'post-toc';
+                var html = '<p class="post-toc-title">목차</p><ul>';
+                hs.forEach(function (h, i) {
+                  if (!h.id) h.id = 'sec-' + i;
+                  html += '<li class="toc-' + h.tagName.toLowerCase() + '"><a href="#' + h.id + '">' + h.textContent + '</a></li>';
+                });
+                toc.innerHTML = html + '</ul>';
+                body.insertBefore(toc, body.firstChild);
+              })();
+            </script>
+          {%- endif -%}
         </div>
       </div>
     </main>

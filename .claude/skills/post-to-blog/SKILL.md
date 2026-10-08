@@ -115,6 +115,24 @@ Every new post also feeds the glossary post `_posts/2026-10-08-glossary.md`
 - Commit it in the same commit as the post, and mention the added terms in
   the final reply.
 
+## 5c. Tags, project category, weekly retro
+
+- **Tags**: add `tags: [...]` to the front matter (2~5 tags). Reuse existing
+  tags first (`grep -h '^tags' _posts/*.md`); only add a new tag when nothing
+  fits. Tags show on `/tags/` automatically.
+- **Project posts**: if the post is about a project/hackathon/PoC the user built,
+  use `categories: [일지, 프로젝트]` so it also appears under `/projects/`.
+- **Weekly retro**: if the new post is the first one in a new calendar week
+  (Mon~Sun) and the previous week has no `_posts/YYYY-MM-DD-retro.md` yet,
+  also write that week's retro: `categories: [회고]`, tags `[회고, ...]`, dated
+  the last study day of that week at 23:00, title
+  `"주간 회고 N주차 (M/D~M/D) — <한 줄 주제>"`, sections
+  `## 이번 주 핵심 3가지` (numbered, from the posts' content only — no invented
+  feelings) and `## 이번 주 일지` (links via `{{ site.baseurl }}{% post_url ... %}`).
+  Follow the existing retro posts' format.
+- **Glossary links**: each glossary row has a third column `처음 나온 글` linking
+  to the post the term was learned in — fill it for new terms.
+
 ## 6. Commit and push
 
 ```bash

@@ -305,3 +305,144 @@ a:hover {
 .site-footer a:hover {
   color: var(--accent);
 }
+
+/* ---------- 태그 ---------- */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.tag-chip,
+.tag-chip:visited {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+.tag-chip:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+.tag-chip small {
+  opacity: 0.7;
+}
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.tag-post-list {
+  list-style: none;
+  margin-left: 0;
+}
+.tag-post-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.tag-post-list li > span {
+  color: var(--muted);
+  font-size: 13px;
+  margin-right: 8px;
+}
+
+/* ---------- 목차 ---------- */
+.post-toc {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+.post-toc-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.post-toc ul {
+  list-style: none;
+  margin: 0;
+}
+.post-toc .toc-h3 {
+  padding-left: 16px;
+  font-size: 14px;
+}
+.post-toc a {
+  color: var(--ink);
+}
+.post-toc a:hover {
+  color: var(--accent);
+}
+
+/* ---------- 이전 / 다음 글 ---------- */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 36px 0 24px;
+}
+.post-nav a {
+  flex: 1 1 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+}
+.post-nav a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.post-nav a span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.post-nav-next {
+  text-align: right;
+}
+
+/* ---------- 검색 ---------- */
+.search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: inherit;
+}
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  border-color: transparent;
+}
+.search-count {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 10px;
+}
+.search-snippet {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+.empty-note {
+  color: var(--muted);
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar-category-list {
+    flex-wrap: wrap;
+  }
+  .post-nav {
+    flex-direction: column;
+  }
+}

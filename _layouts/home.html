@@ -20,11 +20,16 @@ layout: default
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
         </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
+        <p>{{ post.content | strip_html | normalize_whitespace | truncate: 110 }}</p>
+        {%- if post.tags.size > 0 -%}
+        <div class="post-tags">
+          {%- for t in post.tags -%}<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ t | slugify: 'raw' }}">#{{ t }}</a>{%- endfor -%}
+        </div>
         {%- endif -%}
       </li>
       {%- endfor -%}
     </ul>
+  {%- else -%}
+    <p class="empty-note">아직 글이 없어요.</p>
   {%- endif -%}
 </div>

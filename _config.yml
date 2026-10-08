@@ -21,6 +21,18 @@ plugins:
 
 show_excerpts: true
 
+# 상단 헤더 메뉴에는 소개만 노출 (나머지는 좌측 사이드바)
+header_pages:
+  - about.md
+
+# 댓글(giscus): 저장소 Discussions 활성화 + giscus 앱 설치 후 https://giscus.app 에서
+# repo_id / category_id 를 받아 채우면 글 하단에 댓글창이 켜집니다. 비어 있으면 표시 안 함.
+giscus:
+  repo: borigunbbang/blog_
+  repo_id: ""
+  category: Comments
+  category_id: ""
+
 minima:
   skin: classic
   date_format: "%Y.%m.%d"
