@@ -1,0 +1,15 @@
+<header class="topbar" role="banner">
+  <div class="wrapper topbar-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">{{ site.title }}</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="{{ '/search/' | relative_url }}">검색</a>
+      <a href="{{ '/about/' | relative_url }}">소개</a>
+      {%- if site.minima.social_links.github -%}
+      <a href="https://github.com/{{ site.minima.social_links.github }}" target="_blank" rel="noopener">GitHub</a>
+      {%- endif -%}
+    </nav>
+  </div>
+</header>

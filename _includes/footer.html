@@ -1,0 +1,9 @@
+<footer class="site-foot">
+  <div class="wrapper site-foot-inner">
+    <p><span class="brand-mark">✦</span> {{ site.title }} · {{ site.description }}</p>
+    <p>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      {%- if site.minima.social_links.github %} · <a href="https://github.com/{{ site.minima.social_links.github }}" target="_blank" rel="noopener">GitHub</a>{%- endif %}
+    </p>
+  </div>
+</footer>

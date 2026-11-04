@@ -1,6 +1,7 @@
 # Jekyll 사이트 설정
 title: 학습 기록
 description: 날짜별로 남기는 학습 기록 블로그
+lang: ko
 url: "https://borigunbbang.github.io"
 baseurl: "/blog_"
 
