@@ -11,15 +11,22 @@ $content-width: 1280px;
 
 @import "minima";
 
+/* 둥근 고딕: 네이버 웹폰트는 굵기마다 이름이 달라서 하나의 이름에 굵기를 직접 연결한다 */
+$nsr: "https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRound";
+@font-face { font-family: "NSRound"; font-weight: 300; font-display: swap; src: url("#{$nsr}L.woff2") format("woff2"), url("#{$nsr}L.woff") format("woff"); }
+@font-face { font-family: "NSRound"; font-weight: 400; font-display: swap; src: url("#{$nsr}R.woff2") format("woff2"), url("#{$nsr}R.woff") format("woff"); }
+@font-face { font-family: "NSRound"; font-weight: 700; font-display: swap; src: url("#{$nsr}B.woff2") format("woff2"), url("#{$nsr}B.woff") format("woff"); }
+@font-face { font-family: "NSRound"; font-weight: 800; font-display: swap; src: url("#{$nsr}EB.woff2") format("woff2"), url("#{$nsr}EB.woff") format("woff"); }
+
 /* =========================================================
    "학습 기록 OS" 테마 — 디자인 토큰
    데스크톱 운영체제처럼: 메뉴바 · 바탕화면 아이콘 · 창
    ========================================================= */
 
 :root {
-  --font-ui: "NanumSquareRound", "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+  --font-ui: "NSRound", "Pretendard Variable", Pretendard, -apple-system, sans-serif;
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --font-hand: "Gaegu", "NanumSquareRound", cursive;
+  --font-hand: "Gaegu", "NSRound", cursive;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 
   --bg: #eeefe9;
