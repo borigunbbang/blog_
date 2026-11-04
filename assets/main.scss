@@ -1303,3 +1303,11 @@ article.post {
     align-items: flex-start;
   }
 }
+
+/* minima의 .wrapper clearfix(::after)가 flex·grid 항목으로 끼어드는 것을 막는다 */
+.topbar-inner::after,
+.site-foot-inner::after,
+.layout-shell::after {
+  content: none;
+  display: none;
+}
