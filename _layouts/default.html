@@ -1,34 +1,44 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<html lang="{{ page.lang | default: site.lang | default: 'ko' }}">
 
   {%- include head.html -%}
 
   <body>
+    <script>try { if (localStorage.getItem('win-max') === '1') document.body.classList.add('is-max'); } catch (e) {}</script>
+
+    {%- if page.layout == 'post' -%}<div class="read-progress" aria-hidden="true"><span></span></div>{%- endif -%}
 
     {%- include header.html -%}
 
-    {%- if page.layout == 'post' -%}<div class="read-progress" aria-hidden="true"><span></span></div>{%- endif -%}
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper layout-shell">
-        <aside class="site-sidebar">
-          <p class="sidebar-heading">메뉴</p>
-          <ul class="sidebar-category-list">
-            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="is-active"{% endif %}><span class="nav-ico">🏠</span><span>홈</span></a></li>
-            <li><a href="{{ '/posts/' | relative_url }}"{% if page.url == '/posts/' %} class="is-active"{% elsif page.categories contains '일지' %}{% unless page.categories contains '프로젝트' %} class="is-active"{% endunless %}{% endif %}><span class="nav-ico">📚</span><span>학습목록</span></a></li>
-            <li><a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' or page.categories contains '프로젝트' %} class="is-active"{% endif %}><span class="nav-ico">🛠️</span><span>프로젝트</span></a></li>
-            <li><a href="{{ '/retros/' | relative_url }}"{% if page.url == '/retros/' or page.categories contains '회고' %} class="is-active"{% endif %}><span class="nav-ico">🗓️</span><span>주간 회고</span></a></li>
-            <li><a href="{{ '/glossary/' | relative_url }}"{% if page.url == '/glossary/' or page.categories contains '용어정리' %} class="is-active"{% endif %}><span class="nav-ico">📖</span><span>용어정리</span></a></li>
-            <li><a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} class="is-active"{% endif %}><span class="nav-ico">🏷️</span><span>태그</span></a></li>
-            <li><a href="{{ '/search/' | relative_url }}"{% if page.url == '/search/' %} class="is-active"{% endif %}><span class="nav-ico">🔍</span><span>검색</span></a></li>
-            <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="is-active"{% endif %}><span class="nav-ico">👋</span><span>소개</span></a></li>
-          </ul>
-        </aside>
-        <div class="content-area">
+    {%- capture nav_posts -%}{%- if page.url == '/posts/' -%}is-active{%- elsif page.categories contains '일지' -%}{%- unless page.categories contains '프로젝트' -%}is-active{%- endunless -%}{%- endif -%}{%- endcapture -%}
+
+    <div class="desktop">
+      <nav class="desk-icons desk-left" aria-label="메뉴">
+        <a class="desk-icon tone-blue {% if page.url == '/' %}is-active{% endif %}" href="{{ '/' | relative_url }}"><span class="desk-ico">{% include icon.html name='home' %}</span><span class="desk-label">홈</span></a>
+        <a class="desk-icon tone-orange {{ nav_posts }}" href="{{ '/posts/' | relative_url }}"><span class="desk-ico">{% include icon.html name='book' %}</span><span class="desk-label">학습목록</span></a>
+        <a class="desk-icon tone-purple {% if page.url == '/projects/' or page.categories contains '프로젝트' %}is-active{% endif %}" href="{{ '/projects/' | relative_url }}"><span class="desk-ico">{% include icon.html name='tool' %}</span><span class="desk-label">프로젝트</span></a>
+        <a class="desk-icon tone-green {% if page.url == '/retros/' or page.categories contains '회고' %}is-active{% endif %}" href="{{ '/retros/' | relative_url }}"><span class="desk-ico">{% include icon.html name='calendar' %}</span><span class="desk-label">주간 회고</span></a>
+        <a class="desk-icon tone-red {% if page.url == '/glossary/' or page.categories contains '용어정리' %}is-active{% endif %}" href="{{ '/glossary/' | relative_url }}"><span class="desk-ico">{% include icon.html name='dict' %}</span><span class="desk-label">용어정리</span></a>
+      </nav>
+
+      <main class="window" aria-label="Content">
+        <div class="window-bar">
+          <span class="window-title">
+            <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+            {%- if page.url != '/' %} <span class="sep">/</span> <span class="cur">{{ page.title | escape | truncate: 48 }}</span>{%- endif -%}
+          </span>
+          <span class="window-ctrl">
+            <button type="button" class="win-btn win-max" aria-label="창 크게 보기" title="창 크게 보기"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></button>
+            <a class="win-btn" href="{{ '/' | relative_url }}" aria-label="홈으로" title="홈으로"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          </span>
+        </div>
+
+        <div class="window-body">
           {{ content }}
 
           {%- if page.layout == 'post' -%}
             {%- if page.tags.size > 0 -%}
-            <div class="post-tags">
+            <div class="post-tags post-tags-bottom">
               {%- for t in page.tags -%}
               <a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ t | slugify: 'raw' }}">#{{ t }}</a>
               {%- endfor -%}
@@ -43,6 +53,7 @@
               {%- endif -%}
             </nav>
             {%- if site.giscus.repo_id and site.giscus.category_id -%}
+            <div class="comments">
             <script src="https://giscus.app/client.js"
               data-repo="{{ site.giscus.repo }}"
               data-repo-id="{{ site.giscus.repo_id }}"
@@ -51,42 +62,73 @@
               data-mapping="pathname" data-strict="0" data-reactions-enabled="1"
               data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme"
               data-lang="ko" crossorigin="anonymous" async></script>
+            </div>
             {%- endif -%}
-            <script>
-              (function () {
-                var body = document.querySelector('.post-content');
-                if (!body) return;
-                var hs = body.querySelectorAll('h2, h3');
-                if (hs.length < 4) return;
-                var toc = document.createElement('nav');
-                toc.className = 'post-toc';
-                var html = '<p class="post-toc-title">목차</p><ul>';
-                hs.forEach(function (h, i) {
-                  if (!h.id) h.id = 'sec-' + i;
-                  html += '<li class="toc-' + h.tagName.toLowerCase() + '"><a href="#' + h.id + '">' + h.textContent + '</a></li>';
-                });
-                toc.innerHTML = html + '</ul>';
-                body.insertBefore(toc, body.firstChild);
-              })();
-              (function () {
-                var bar = document.querySelector('.read-progress span');
-                if (!bar) return;
-                function update() {
-                  var h = document.documentElement;
-                  var max = h.scrollHeight - h.clientHeight;
-                  bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-                }
-                document.addEventListener('scroll', update, { passive: true });
-                update();
-              })();
-            </script>
           {%- endif -%}
+
+          {%- include footer.html -%}
         </div>
-      </div>
-    </main>
+      </main>
 
-    {%- include footer.html -%}
+      <nav class="desk-icons desk-right" aria-label="도구">
+        <a class="desk-icon tone-yellow {% if page.url == '/tags/' %}is-active{% endif %}" href="{{ '/tags/' | relative_url }}"><span class="desk-ico">{% include icon.html name='tag' %}</span><span class="desk-label">태그</span></a>
+        <a class="desk-icon tone-blue {% if page.url == '/search/' %}is-active{% endif %}" href="{{ '/search/' | relative_url }}"><span class="desk-ico">{% include icon.html name='search' %}</span><span class="desk-label">검색</span></a>
+        <a class="desk-icon tone-orange {% if page.url == '/about/' %}is-active{% endif %}" href="{{ '/about/' | relative_url }}"><span class="desk-ico">{% include icon.html name='user' %}</span><span class="desk-label">소개</span></a>
+        {%- if site.minima.social_links.github -%}
+        <a class="desk-icon tone-purple" href="https://github.com/{{ site.minima.social_links.github }}" target="_blank" rel="noopener"><span class="desk-ico">{% include icon.html name='code' %}</span><span class="desk-label">GitHub</span></a>
+        {%- endif -%}
+        <a class="desk-icon tone-green" href="{{ '/feed.xml' | relative_url }}"><span class="desk-ico">{% include icon.html name='rss' %}</span><span class="desk-label">RSS</span></a>
+      </nav>
+    </div>
 
+    <script>
+      (function () {
+        var btn = document.querySelector('.win-max');
+        if (btn) btn.addEventListener('click', function () {
+          var on = document.body.classList.toggle('is-max');
+          try { localStorage.setItem('win-max', on ? '1' : '0'); } catch (e) {}
+        });
+
+        var body = document.querySelector('.post-content');
+        if (body) {
+          var hs = body.querySelectorAll('h2, h3');
+          if (hs.length >= 4) {
+            var toc = document.createElement('nav');
+            toc.className = 'post-toc';
+            var html = '<p class="post-toc-title">목차</p><ul>';
+            hs.forEach(function (h, i) {
+              if (!h.id) h.id = 'sec-' + i;
+              html += '<li class="toc-' + h.tagName.toLowerCase() + '"><a href="#' + h.id + '">' + h.textContent + '</a></li>';
+            });
+            toc.innerHTML = html + '</ul>';
+            body.insertBefore(toc, body.firstChild);
+          }
+        }
+
+        var bar = document.querySelector('.read-progress span');
+        if (bar) {
+          var update = function () {
+            var h = document.documentElement;
+            var max = h.scrollHeight - h.clientHeight;
+            bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+          };
+          document.addEventListener('scroll', update, { passive: true });
+          update();
+        }
+
+        document.querySelectorAll('[data-tabs]').forEach(function (box) {
+          var tabs = box.querySelectorAll('[role="tab"]');
+          var panels = box.querySelectorAll('[role="tabpanel"]');
+          tabs.forEach(function (t, i) {
+            t.addEventListener('click', function () {
+              tabs.forEach(function (x, j) { x.setAttribute('aria-selected', i === j ? 'true' : 'false'); });
+              panels.forEach(function (p, j) { p.hidden = i !== j; });
+              box.style.setProperty('--folder', t.dataset.color);
+            });
+          });
+        });
+      })();
+    </script>
   </body>
 
 </html>

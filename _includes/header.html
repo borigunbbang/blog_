@@ -1,15 +1,19 @@
-<header class="topbar" role="banner">
-  <div class="wrapper topbar-inner">
-    <a class="brand" href="{{ '/' | relative_url }}">
-      <span class="brand-mark">✦</span>
-      <span class="brand-text">{{ site.title }}</span>
+{%- assign _latest = site.categories['일지'] | first -%}
+<header class="menubar" role="banner">
+  <a class="brand" href="{{ '/' | relative_url }}">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="brand-text">{{ site.title }}</span>
+  </a>
+  <nav class="menubar-nav">
+    <a href="{{ '/posts/' | relative_url }}">학습목록</a>
+    <a href="{{ '/projects/' | relative_url }}">프로젝트</a>
+    <a href="{{ '/glossary/' | relative_url }}">용어정리</a>
+    <a href="{{ '/retros/' | relative_url }}">회고</a>
+  </nav>
+  <div class="menubar-right">
+    <a class="menubar-icon" href="{{ '/search/' | relative_url }}" aria-label="검색">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     </a>
-    <nav class="topbar-nav">
-      <a href="{{ '/search/' | relative_url }}">검색</a>
-      <a href="{{ '/about/' | relative_url }}">소개</a>
-      {%- if site.minima.social_links.github -%}
-      <a href="https://github.com/{{ site.minima.social_links.github }}" target="_blank" rel="noopener">GitHub</a>
-      {%- endif -%}
-    </nav>
+    <a class="btn3d btn3d-sm" href="{{ _latest.url | relative_url }}"><span>최신 글 읽기</span></a>
   </div>
 </header>

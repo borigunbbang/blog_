@@ -11,62 +11,87 @@ layout: default
 {%- assign term_count = row_count | minus: table_count -%}
 {%- assign latest = logs | first -%}
 
-<div class="bento">
-  <section class="bento-hero">
-    <span class="hero-badge">✦ 매일 조금씩 쌓는 AI·개발 공부</span>
-    <h1>{{ site.title }}</h1>
-    <p>{{ content | strip_html | strip }}</p>
-    <form class="hero-search" action="{{ '/search/' | relative_url }}">
-      <input type="search" name="q" placeholder="배운 내용 검색 — Attention, RAG, LangGraph…" class="search-input" aria-label="검색어">
-      <button type="submit">검색</button>
-    </form>
-  </section>
+<div class="home-os">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-logo"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>{{ site.title }}</span>
+      <h1>매일 조금씩 쌓는<br><mark>AI·개발 공부 노트</mark></h1>
+      <p>{{ content | strip_html | strip }}</p>
+      <p class="hero-sub">지금까지 {{ logs.size }}편의 일지를 남겼어요.</p>
+    </div>
 
-  <div class="bento-stat tone-lavender"><strong>{{ logs.size }}</strong><span>학습 일지</span></div>
-  <div class="bento-stat tone-pink"><strong>{{ projects.size }}</strong><span>프로젝트</span></div>
-  <div class="bento-stat tone-mint"><strong>{{ retros.size }}</strong><span>주간 회고</span></div>
-  <div class="bento-stat tone-sky"><strong>{{ term_count }}</strong><span>정리한 용어</span></div>
+    <div class="setup-card">
+      <h2>오늘도 <span class="brand-mark brand-mark-sm" aria-hidden="true"><i></i><i></i><i></i></span> 기록 중</h2>
+      <ul class="checks">
+        <li><b>{{ logs.size }}</b>편의 학습 일지</li>
+        <li><b>{{ projects.size }}</b>개의 직접 만든 프로젝트</li>
+        <li><b>{{ retros.size }}</b>번의 주간 회고</li>
+        <li><b>{{ term_count }}</b>개의 정리한 용어</li>
+      </ul>
+      {%- if latest -%}
+      <a class="btn3d btn3d-block" href="{{ latest.url | relative_url }}"><span>최신 글 읽기</span></a>
+      {%- endif -%}
+      <form class="setup-search" action="{{ '/search/' | relative_url }}">
+        <input type="search" name="q" placeholder="배운 내용 검색 (Attention, RAG…)" class="search-input" aria-label="검색어">
+        <button type="submit" class="btn3d btn3d-ghost"><span>검색</span></button>
+      </form>
+    </div>
+  </section>
 
   {%- if latest -%}
-  <a class="bento-latest" href="{{ latest.url | relative_url }}">
-    <span class="eyebrow">최신 글 · {{ latest.date | date: "%Y.%m.%d" }}</span>
-    <h2>{{ latest.title | escape }}</h2>
-    <p>{{ latest.content | strip_html | normalize_whitespace | truncate: 140 }}</p>
-    <span class="more">읽으러 가기 →</span>
-  </a>
+  <section class="pinned">
+    <p class="scribble">따끈따끈한 새 글 <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M2 4c14 0 26 6 30 20m0 0-6-4m6 4 3-7"/></svg></p>
+    <a class="paper" href="{{ latest.url | relative_url }}">
+      <span class="tape tape-l"></span><span class="tape tape-r"></span>
+      <span class="paper-date">{{ latest.date | date: "%Y.%m.%d" }}</span>
+      <h2>{{ latest.title | escape }}</h2>
+      <p>{{ latest.content | strip_html | normalize_whitespace | truncate: 180 }}</p>
+      {%- if latest.tags.size > 0 -%}
+      <span class="post-tags">{%- for t in latest.tags -%}<span class="tag-chip">#{{ t }}</span>{%- endfor -%}</span>
+      {%- endif -%}
+    </a>
+  </section>
   {%- endif -%}
 
-  <nav class="bento-menu">
-    <a class="menu-tile tone-lavender" href="{{ '/posts/' | relative_url }}"><span class="tile-ico">📚</span><b>학습목록</b><small>날짜별 학습 일지</small></a>
-    <a class="menu-tile tone-pink" href="{{ '/projects/' | relative_url }}"><span class="tile-ico">🛠️</span><b>프로젝트</b><small>직접 만든 것들</small></a>
-    <a class="menu-tile tone-mint" href="{{ '/retros/' | relative_url }}"><span class="tile-ico">🗓️</span><b>주간 회고</b><small>한 주의 핵심 3가지</small></a>
-    <a class="menu-tile tone-sky" href="{{ '/glossary/' | relative_url }}"><span class="tile-ico">📖</span><b>용어정리</b><small>주제별 핵심 용어</small></a>
-    <a class="menu-tile tone-peach" href="{{ '/tags/' | relative_url }}"><span class="tile-ico">🏷️</span><b>태그</b><small>주제별로 모아 보기</small></a>
-    <a class="menu-tile tone-butter" href="{{ '/about/' | relative_url }}"><span class="tile-ico">👋</span><b>소개</b><small>블로그와 기록 방식</small></a>
-  </nav>
-
-  <section class="bento-panel bento-recent">
-    <div class="panel-head"><h2>최근 학습</h2><a href="{{ '/posts/' | relative_url }}">전체 보기 →</a></div>
-    <ul class="recent-list">
-      {%- for p in logs limit: 6 -%}
-      <li><a href="{{ p.url | relative_url }}"><span class="recent-date">{{ p.date | date: "%m.%d" }}</span><span class="recent-title">{{ p.title | escape }}</span></a></li>
-      {%- endfor -%}
-    </ul>
-  </section>
-
-  <section class="bento-panel bento-side">
-    {%- assign r = retros | first -%}
-    <div class="panel-head"><h2>최근 회고</h2><a href="{{ '/retros/' | relative_url }}">전체 보기 →</a></div>
-    {%- if r -%}
-    <a class="retro-card" href="{{ r.url | relative_url }}">
-      <b>{{ r.title | escape }}</b>
-      <span>{{ r.content | strip_html | normalize_whitespace | truncate: 130 }}</span>
-    </a>
-    {%- endif -%}
-    <div class="panel-head"><h2>자주 나온 태그</h2></div>
-    <div class="post-tags">
-      {%- assign tags = site.tags | sort_natural -%}
-      {%- for t in tags -%}{%- if t[1].size >= 3 and t[0] != '회고' -%}<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify: 'raw' }}">#{{ t[0] }} <small>{{ t[1].size }}</small></a>{%- endif -%}{%- endfor -%}
+  <section class="folder" data-tabs style="--folder: var(--c-purple);">
+    <div class="folder-tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-color="var(--c-purple)">최근 학습</button>
+      <button type="button" role="tab" aria-selected="false" data-color="var(--c-orange)">프로젝트</button>
+      <button type="button" role="tab" aria-selected="false" data-color="var(--c-green)">주간 회고</button>
+      <button type="button" role="tab" aria-selected="false" data-color="var(--c-blue)">자주 나온 태그</button>
+    </div>
+    <div class="folder-body">
+      <div role="tabpanel">
+        <ul class="row-list">
+          {%- for p in logs limit: 8 -%}
+          <li><a href="{{ p.url | relative_url }}"><span class="row-date">{{ p.date | date: "%m.%d" }}</span><span class="row-title">{{ p.title | escape }}</span><span class="row-go">→</span></a></li>
+          {%- endfor -%}
+        </ul>
+        <a class="folder-more" href="{{ '/posts/' | relative_url }}">학습목록 전체 보기 →</a>
+      </div>
+      <div role="tabpanel" hidden>
+        <ul class="row-list">
+          {%- for p in projects limit: 8 -%}
+          <li><a href="{{ p.url | relative_url }}"><span class="row-date">{{ p.date | date: "%m.%d" }}</span><span class="row-title">{{ p.title | escape }}</span><span class="row-go">→</span></a></li>
+          {%- endfor -%}
+        </ul>
+        <a class="folder-more" href="{{ '/projects/' | relative_url }}">프로젝트 전체 보기 →</a>
+      </div>
+      <div role="tabpanel" hidden>
+        <ul class="row-list">
+          {%- for p in retros limit: 8 -%}
+          <li><a href="{{ p.url | relative_url }}"><span class="row-date">{{ p.date | date: "%m.%d" }}</span><span class="row-title">{{ p.title | escape }}</span><span class="row-go">→</span></a></li>
+          {%- endfor -%}
+        </ul>
+        <a class="folder-more" href="{{ '/retros/' | relative_url }}">회고 전체 보기 →</a>
+      </div>
+      <div role="tabpanel" hidden>
+        <div class="post-tags">
+          {%- assign tags = site.tags | sort_natural -%}
+          {%- for t in tags -%}{%- if t[1].size >= 2 and t[0] != '회고' -%}<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify: 'raw' }}">#{{ t[0] }} <small>{{ t[1].size }}</small></a>{%- endif -%}{%- endfor -%}
+        </div>
+        <a class="folder-more" href="{{ '/tags/' | relative_url }}">태그 전체 보기 →</a>
+      </div>
     </div>
   </section>
 </div>
